@@ -1,10 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+// import console  from 'console';
+import ItemScreen from './screens/items.screens';
+import ListScreen from './screens/list.screens';
+import { createStackNavigator, createAppContainer } from "react-navigation";
+
 
 export default function App() {
+  console.log("hello andy");
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      
+      {/* <ItemScreen/> */}
+      <ListScreen/>
     </View>
   );
 }
@@ -12,8 +20,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    // backgroundColor: 'blue',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
 });
