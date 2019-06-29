@@ -6,22 +6,21 @@ import ListScreen from './screens/list.screens';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 
-export default function App() {
-  console.log("hello andy");
-  return (
-    <View style={styles.container}>
-      
-      {/* <ItemScreen/> */}
-      <ListScreen/>
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: 'blue',
-    // alignItems: 'center',
-    justifyContent: 'center',
+const RootStack = createStackNavigator({
+    Home: ListScreen,
+    Item: ItemScreen,
   },
-});
+  {
+    initialRouteName: 'Item',
+  }
+);
+
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}

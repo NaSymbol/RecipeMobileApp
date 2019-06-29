@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, Button, Text, View } from 'react-native';
+import { TouchableOpacity, FlatList, Image, StyleSheet, Button, Text, View } from 'react-native';
 import Header from '../components/header';
 
 export default class ListScreen extends React.Component {
@@ -212,11 +212,10 @@ export default class ListScreen extends React.Component {
               <View style={styles.heading}>
               <Text style={styles.text}>{item.title}</Text>
               </View>
-             
             </View>
+            
           )}
         />
-            
 
 
 
@@ -228,6 +227,10 @@ export default class ListScreen extends React.Component {
 
 
 const styles = StyleSheet.create({
+  button: {
+    marginTop: 50,
+    marginEnd: 50,
+  },
   container: {
     flex: 1,
     backgroundColor: 'blue',
