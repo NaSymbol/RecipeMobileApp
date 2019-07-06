@@ -3,7 +3,7 @@ import { Image, StyleSheet, Button, Text, View } from 'react-native';
 
 
 export default class ItemScreen extends React.Component {
-    // static navigationOptions = { header: null }
+    static navigationOptions = { header: null }
     constructor(props){
         super(props);
         this.state = {
@@ -25,11 +25,20 @@ export default class ItemScreen extends React.Component {
                 "publisher_url": "http://closetcooking.com",
                 "title": "Jalapeno Popper Grilled Cheese Sandwich"
                     }
-        }
+        };
+
     }
 
 
   render() {
+
+
+    // navigation params
+    const { navigation } = this.props;
+    const recipeId = navigation.getParam('rid', 'NO-ID');
+
+
+
     return (
       <View>
         <Text>{this.state.recipe.title}</Text>
@@ -38,10 +47,11 @@ export default class ItemScreen extends React.Component {
                 source={{ uri: this.state.recipe.image_url }}
         />
         <Text>ingredients</Text>
+        {/* loop for ingredients with key */}
         {this.state.recipe.ingredients.map( (number) =>
         <Text key={number.toString()}>{number}</Text>
-
         )}
+        <Text>Recipe ID:  {JSON.stringify(recipeId)}</Text>
 
 
       </View>

@@ -12,7 +12,7 @@ const RootStack = createStackNavigator({
     Item: ItemScreen,
   },
   {
-    initialRouteName: 'Item',
+    initialRouteName: 'Home',
   }
 );
 

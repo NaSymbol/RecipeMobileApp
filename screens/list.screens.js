@@ -1,8 +1,10 @@
 import React from 'react';
 import { TouchableOpacity, FlatList, Image, StyleSheet, Button, Text, View } from 'react-native';
 import Header from '../components/header';
+import SearchBar from '../components/searchBar';
 
 export default class ListScreen extends React.Component {
+  static navigationOptions = { header: null }
     constructor(props){
         super(props);
         this.state = {
@@ -196,15 +198,18 @@ export default class ListScreen extends React.Component {
 // render the return from API which is an array
   render() {
     return (
-      <View>
+      <View style={{flex:1}}>
        
         {/* display each  */}
         <FlatList
           data={this.state.recipe}
           ListHeaderComponent={Header}
+          // ListFooterComponent={SearchBar}
           keyExtractor={(item, index) => item.recipe_id}
           renderItem={({ item }) => (
-            <View style={styles.item}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Item', {
+              rid: item.recipe_id,
+            })}><View style={styles.item}>
                <Image
                 style={{ width: 500, height: 115 }}
                 source={{ uri: item.image_url }}
@@ -213,12 +218,10 @@ export default class ListScreen extends React.Component {
               <Text style={styles.text}>{item.title}</Text>
               </View>
             </View>
-            
+            </TouchableOpacity>
           )}
         />
-
-
-
+             <SearchBar/>  
       </View>
     );
   }
