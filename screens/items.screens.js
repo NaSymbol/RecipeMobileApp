@@ -1,5 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Button, Text, View } from 'react-native';
+import recipeId from '../data/recipesItem';
+import Header from '../components/header';
 
 
 export default class ItemScreen extends React.Component {
@@ -8,31 +10,18 @@ export default class ItemScreen extends React.Component {
         super(props);
         this.state = {
             rid: 35382, 
-            recipe: {
-                "publisher": "Closet Cooking",
-                "f2f_url": "http://food2fork.com/view/35382",
-                "ingredients": [
-                    "2 jalapeno peppers, cut in half lengthwise and seeded",
-                    "2 slices sour dough bread",
-                    "1 tablespoon butter, room temperature",
-                    "2 tablespoons cream cheese, room temperature",
-                    "1/2 cup jack and cheddar cheese, shredded",
-                    "1 tablespoon tortilla chips,crumbled"
-                ],
-                "source_url": "http: //www.closetcooking.com/2011/04/jalapeno-popper-grilled-cheese-sandwich.html", "recipe_id": "35382",
-                "image_url": "http://static.food2fork.com/Jalapeno2BPopper2BGrilled2BCheese2BSandwich2B12B500fd186186.jpg",
-                "social_rank": 100.0,
-                "publisher_url": "http://closetcooking.com",
-                "title": "Jalapeno Popper Grilled Cheese Sandwich"
-                    }
+            recipe: recipeId
         };
 
     }
 
+    // fetch the food2fork api
+    // componentDidMount(){
+    
+    
+    // }
 
-  render() {
-
-
+render(){
     // navigation params
     const { navigation } = this.props;
     const recipeId = navigation.getParam('rid', 'NO-ID');
@@ -41,18 +30,20 @@ export default class ItemScreen extends React.Component {
 
     return (
       <View>
-        <Text>{this.state.recipe.title}</Text>
+        <Header />
+        <Text style={styles.heading}>{this.state.recipe.title}</Text>
         <Image
                 style={{ width: 500, height: 200 }}
                 source={{ uri: this.state.recipe.image_url }}
         />
-        <Text>ingredients</Text>
+        <View style={styles.ingredients}>
+        <Text style={styles.ingredient_heading}>Ingredients</Text>
         {/* loop for ingredients with key */}
         {this.state.recipe.ingredients.map( (number) =>
-        <Text key={number.toString()}>{number}</Text>
+        <Text style={styles.ingredient_items} key={number.toString()}>{number}</Text>
         )}
         <Text>Recipe ID:  {JSON.stringify(recipeId)}</Text>
-
+        </View>
 
       </View>
     );
@@ -68,6 +59,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  heading: {
+    fontSize: 24,
+    textAlign: "center",
+    marginBottom: 20,
+    marginTop: 20
+  },
+  ingredients: {
+    padding: 15
+  },
+  ingredient_heading:{
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 5
+  },
+  ingredient_items: {
+    marginTop: 10
+  }
 });
 
 
