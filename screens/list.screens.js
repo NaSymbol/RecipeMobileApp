@@ -11,30 +11,81 @@ export default class ListScreen extends React.Component {
         super(props);
         this.state = {
             searchQ: '',
-            recipe: recipeList
+            recipe: recipeList,
+            recipeArray: recipeList,
+            limitReached: false
         }
         this.onSubmitChange = this.onSubmitChange.bind(this);
 
     }
-    // componentDidMount(){
+    componentDidMount(){
+      console.log('this is inside componentdidMount: ' + this.state.searchQ);
+      const url = 'https://www.food2fork.com/api/search?key=595d1e2252464ece28e41c9a36bca770';
+      return fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
 
+        this.setState({
+          recipeArray: responseJson.recipes
+        }, function(){
+          // console.log(this.state.recipeArray);
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
     
-    // }
+    }
+    // api call function
+    onAPICall(searchTerm){
+      // const url2 = 'https://www.food2fork.com/api/search?key=595d1e2252464ece28e41c9a36bca770&q=' + this.state.searchQ;
+      const url2 = 'https://www.food2fork.com/api/search?key=302447178e495448bdc7cf0219101ad4&q=' + searchTerm;
+
+      console.log('this is inside onAPIcall');
+
+      return fetch(url2)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if(responseJson.error){
+          this.setState({limitReached: true})
+        }
+        this.setState({
+          recipeArray: responseJson.recipes
+        }, function(){
+          // console.log(this.state.recipeArray);
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+    }
     // onSubmitChange
-    onSubmitChange(q) {
-        this.setState({searchQ: q})
+    onSubmitChange(searchTerm) {
+        // this.setState({searchQ: q})
+        console.log('this is insdie onSubmitChange: ');
+        this.onAPICall(searchTerm);
     }
 
 // render the return from API which is an array
   render() {
 
-    console.log(this.state.searchQ);
+    console.log('this is inside render() : ' + this.state.searchQ);
+
+    if(this.state.limitReached){
+      return (
+        <View>
+          <Text>API Call Limit Reached</Text>
+        </View>
+      )
+    }
     return (
       <View style={{flex:1}}>
        
         {/* display each  */}
         <FlatList
-          data={this.state.recipe}
+          data={this.state.recipeArray}
     ListHeaderComponent={<SearchBar searchQ={this.onSubmitChange} /> }
           // ListFooterComponent={SearchBar}
           keyExtractor={(item, index) => item.recipe_id}

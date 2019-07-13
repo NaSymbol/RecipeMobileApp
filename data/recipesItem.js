@@ -7,6 +7,10 @@ export default recipeId = {
         "1 tablespoon butter, room temperature",
         "2 tablespoons cream cheese, room temperature",
         "1/2 cup jack and cheddar cheese, shredded",
+        "2 slices sour dough bread",
+        "1 tablespoon butter, room temperature",
+        "2 tablespoons cream cheese, room temperature",
+        "1/2 cup jack and cheddar cheese, shredded",
         "1 tablespoon tortilla chips,crumbled"
     ],
     "source_url": "http: //www.closetcooking.com/2011/04/jalapeno-popper-grilled-cheese-sandwich.html", "recipe_id": "35382",
