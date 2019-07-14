@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, Image, StyleSheet, Button, Text, View } from 'react-native';
-import {Icon } from 'native-base';
-
+// import {Icon } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class SearchBar extends React.Component {
 
@@ -31,7 +31,8 @@ export default class SearchBar extends React.Component {
       />
               {/* <Icon name='search1' /> */}
                 {/* Icon for Search */}
-                <Text style={styles.Icon}>ICON</Text>
+                {/* <Text style={styles.Icon}>ICON</Text> */}
+                <Icon name="search"  style={styles.icon}/>
       </View>
     );
   }
@@ -59,6 +60,14 @@ const styles = StyleSheet.create({
   icon: {
     flex:1,
     height: 40,
+    color: 'white',
+    fontSize: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 25,
+    marginLeft: 5
+
   },
   searchbar: {
     flex: 20, 

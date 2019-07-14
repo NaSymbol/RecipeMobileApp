@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Button, Text, View } from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, Button, Text, View } from 'react-native';
 import recipeId from '../data/recipesItem';
 import Header from '../components/header';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,39 +10,48 @@ export default class ItemScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            rid: 35382, 
+            isLoading: true,
+            rid: 35382,
             recipe: recipeId
         };
     
     }
 
     // fetch the food2fork api
-    // componentDidMount(){
-    //    // navigation params
-    //    const { navigation } = this.props;
-    //    const recipeTag = navigation.getParam('rid', 'NO-ID');
-    //    const key = '302447178e495448bdc7cf0219101ad4';
-    //    console.log(recipeTag);
-    //    const url = 'https://www.food2fork.com/api/get?key=' + key + '&rId=' + recipeTag;
-    //    console.log(url);
-    //   return fetch(url)
-    //   .then((response) => response.json())
-    //   .then((responseJson) => {
+    componentDidMount(){
+       // navigation params
+       const { navigation } = this.props;
+       const recipeTag = navigation.getParam('rid', 'NO-ID');
+       const key = '302447178e495448bdc7cf0219101ad4';
+       console.log(recipeTag);
+       const url = 'https://www.food2fork.com/api/get?key=' + key + '&rId=' + recipeTag;
+       console.log(url);
+      return fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
 
-    //     this.setState({
-    //       recipe: responseJson.recipe,
-    //     }, function(){
-    //           // console.log(this.state.recipe);
-    //     });
+        this.setState({
+          isLoading: false,
+          recipe: responseJson.recipe,
+        }, function(){
+              // console.log(this.state.recipe);
+        });
 
-    //   })
-    //   .catch((error) =>{
-    //     console.error(error);
-    //   });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
     
-    // }
+    }
 
 render(){
+  if(this.state.limitReached){
+    return (
+      <View>
+        <Text>API Call Limit Reached</Text>
+      </View>
+    )
+  }
          
 
     return (
@@ -72,7 +81,7 @@ render(){
 const styles = StyleSheet.create({
   container: {
 
-
+    marginTop: 24,
 
   },
   heading: {

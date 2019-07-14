@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, FlatList, Image, StyleSheet, Button, Text, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, FlatList, Image, StyleSheet, Button, Text, View } from 'react-native';
 import Header from '../components/header';
 import SearchBar from '../components/searchBar';
 // import console = require('console');
@@ -10,6 +10,7 @@ export default class ListScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            isLoading: true,
             searchQ: '',
             recipe: recipeList,
             recipeArray: recipeList,
@@ -26,6 +27,7 @@ export default class ListScreen extends React.Component {
       .then((responseJson) => {
 
         this.setState({
+          isLoading: false,
           recipeArray: responseJson.recipes
         }, function(){
           // console.log(this.state.recipeArray);
@@ -51,6 +53,7 @@ export default class ListScreen extends React.Component {
           this.setState({limitReached: true})
         }
         this.setState({
+          isLoading: false,
           recipeArray: responseJson.recipes
         }, function(){
           // console.log(this.state.recipeArray);
@@ -70,6 +73,14 @@ export default class ListScreen extends React.Component {
 
 // render the return from API which is an array
   render() {
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+
 
     console.log('this is inside render() : ' + this.state.searchQ);
 
@@ -81,7 +92,7 @@ export default class ListScreen extends React.Component {
       )
     }
     return (
-      <View style={{flex:1}}>
+      <View style={styles.container}>
        
         {/* display each  */}
         <FlatList
@@ -119,9 +130,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // backgroundColor: 'blue',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    marginTop: 24
+    
   },
   heading: {
     color: 'white',
